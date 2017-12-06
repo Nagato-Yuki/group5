@@ -1,4 +1,4 @@
-package th.ac.kmitl.science.comsci.example.dal.attributes;
+package th.ac.kmitl.science.comsci.example.dal.connection.jdbc.annotations;
 
 
 import java.lang.annotation.ElementType;
@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface JdbcDriver {
 
-    public String driverName();
+    public String value();
 
 }
