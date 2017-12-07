@@ -46,6 +46,11 @@ public abstract class JdbcConnection implements AutoCloseable {
         connection.setAutoCommit(autoCommit);
     }
 
+    public JdbcConnection withAutoCommit(boolean autoCommit) throws SQLException {
+        connection.setAutoCommit(autoCommit);
+        return this;
+    }
+
     public boolean isInitialized() {
         return isInitialized;
     }

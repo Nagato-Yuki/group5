@@ -5,9 +5,14 @@ import th.ac.kmitl.science.comsci.example.dal.connection.jdbc.annotations.JdbcDr
 import java.sql.SQLException;
 
 @JdbcDriver("com.mysql.jdbc.Driver")
-public class MySqlJdbcConnection extends JdbcConnection {
+public class MySqlJdbcConnection
+        extends JdbcConnection {
 
-    public MySqlJdbcConnection(String databaseUri, String username, String password) throws SQLException {
+    public MySqlJdbcConnection(
+            String databaseUri,
+            String username,
+            String password
+    ) throws SQLException {
         super(databaseUri, username, password);
     }
 }
