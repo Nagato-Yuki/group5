@@ -4,7 +4,8 @@ import th.ac.kmitl.science.comsci.example.dal.connection.jdbc.annotations.JdbcDr
 
 import java.sql.*;
 
-public abstract class JdbcConnection implements AutoCloseable {
+public abstract class JdbcConnection
+        implements AutoCloseable {
 
     private String databaseUri;
     private String username;
@@ -57,7 +58,8 @@ public abstract class JdbcConnection implements AutoCloseable {
 
     public String getJdbcDriverName() {
         if(getClass().isAnnotationPresent(JdbcDriver.class)) {
-            JdbcDriver driverAnnotation = getClass().getAnnotation(JdbcDriver.class);
+            JdbcDriver driverAnnotation = getClass()
+                    .getAnnotation(JdbcDriver.class);
             return driverAnnotation.value();
         }
         throw new UnsupportedOperationException("Can't get JDBC driver name");
