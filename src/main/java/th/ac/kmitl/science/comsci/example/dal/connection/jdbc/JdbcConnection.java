@@ -71,7 +71,7 @@ public abstract class JdbcConnection implements AutoCloseable {
             Class.forName(jdbcDriverName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            throw new UnsupportedOperationException(e.getMessage(), e.getCause());
+            throw new RuntimeException(e.getMessage(), e.getCause());
         }
         connection = DriverManager.getConnection(databaseUri, username, password);
         connection.setAutoCommit(isAutoCommit);
