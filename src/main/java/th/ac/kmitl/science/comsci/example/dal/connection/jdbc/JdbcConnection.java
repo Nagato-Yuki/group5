@@ -69,7 +69,7 @@ public abstract class JdbcConnection
         return connection.prepareStatement(sqlStatement);
     }
 
-    public Statement CreateStatement(String sqlStatement) throws SQLException {
+    public Statement createStatement(String sqlStatement) throws SQLException {
         return connection.createStatement();
     }
 
