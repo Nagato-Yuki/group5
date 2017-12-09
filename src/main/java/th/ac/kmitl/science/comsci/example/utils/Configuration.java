@@ -5,18 +5,19 @@ import java.util.Properties;
 
 public class Configuration {
 
-    private static Configuration instance;
+    private static Configuration configuration;
     private static boolean isInitialized = false;
 
-    public static Configuration getInstance() {
-        if(instance == null || !isInitialized)
+    public static Configuration getConfiguration() {
+        if(configuration == null || !isInitialized)
             throw new RuntimeException("Configuration must be initialized by calling Configuration.init() first");
-        return instance;
+        return configuration;
     }
 
     public static void init(String configurationFile) {
-        if(isInitialized) throw new RuntimeException("Configuration is initialized.");
-        instance = new Configuration(configurationFile);
+        if(isInitialized)
+            throw new RuntimeException("Configuration is initialized.");
+        configuration = new Configuration(configurationFile);
         isInitialized = true;
     }
 
@@ -24,15 +25,28 @@ public class Configuration {
 
     private Configuration(String configurationFile) {
         ClassLoader classLoader = getClass().getClassLoader();
-        InputStream input = classLoader.getResourceAsStream(configurationFile);
         try {
-            properties.load(input);
+            InputStream inputStream = classLoader.getResourceAsStream(configurationFile);
+            properties.load(inputStream);
         } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
+        } catch (NullPointerException e) {
+
+            // When configurationFile is not exist
+            // classLoader.getResourceAsStream(configurationFile) will return null,
+            // so inputStream can be null because of this behavior
             throw new RuntimeException(e.getMessage(), e.getCause());
         }
     }
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        Configuration.configuration = null;
+        Configuration.isInitialized = false;
     }
 }

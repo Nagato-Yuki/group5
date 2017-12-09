@@ -14,13 +14,13 @@ public class ConfigurationTest {
     @Test
     public void cannotGetInstanceWithoutInit() {
         exception.expect(RuntimeException.class);
-        Configuration configuration = Configuration.getInstance();
+        Configuration configuration = Configuration.getConfiguration();
     }
 
     @Test
     public void canGetConfiguration() {
         Configuration.init("junitconfig.properties");
-        Configuration configuration = Configuration.getInstance();
+        Configuration configuration = Configuration.getConfiguration();
         assertEquals("eTaxApp", configuration.getProperty("db.username"));
     }
 
@@ -29,5 +29,4 @@ public class ConfigurationTest {
         exception.expect(RuntimeException.class);
         Configuration.init("junitconfig.properties");
     }
-
 }
