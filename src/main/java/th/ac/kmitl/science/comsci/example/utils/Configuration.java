@@ -43,8 +43,12 @@ public class Configuration {
         return properties.getProperty(key);
     }
 
+    public static boolean isInitialized() {
+        return isInitialized;
+    }
+
     @Override
-    protected void finalize() throws Throwable {
+    public void finalize() throws Throwable {
         super.finalize();
         Configuration.configuration = null;
         Configuration.isInitialized = false;

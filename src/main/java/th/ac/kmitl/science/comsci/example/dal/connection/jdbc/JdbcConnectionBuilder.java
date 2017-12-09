@@ -41,7 +41,7 @@ public class JdbcConnectionBuilder {
     }
     
     public static JdbcConnection fromConfiguration() throws SQLException {
-        Configuration configuration = Configuration.getInstance();
+        Configuration configuration = Configuration.getConfiguration();
         return new JdbcConnectionBuilder()
                 .withJdbcDriverName(configuration.getProperty("db.driver"))
                 .withDatabaseUri(configuration.getProperty("db.databaseUrl"))
