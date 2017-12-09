@@ -16,7 +16,20 @@ public class JdbcConnectionTest {
     }
 
     @Test
-    public void canInitializeConnection() throws SQLException {
+    public void canInitializeConnectionFromBuilder() throws SQLException {
+        Configuration configuration = Configuration.getConfiguration();
+
+        JdbcConnection jdbcConnection = new JdbcConnectionBuilder()
+                .withJdbcDriverName(configuration.getProperty("db.driver"))
+                .withDatabaseUri(configuration.getProperty("db.databaseUrl"))
+                .withUsername(configuration.getProperty("db.username"))
+                .withPassword(configuration.getProperty("db.password"))
+                .build();
+        jdbcConnection.close();
+    }
+
+    @Test
+    public void canInitializeConnectionFromConfig() throws SQLException {
         JdbcConnection jdbcConnection = JdbcConnectionBuilder.fromConfiguration();
         jdbcConnection.close();
     }
