@@ -69,10 +69,6 @@ public abstract class JdbcConnection
         return connection.prepareStatement(sqlStatement);
     }
 
-    public Statement createStatement(String sqlStatement) throws SQLException {
-        return connection.createStatement();
-    }
-
     public void initialize() throws SQLException {
         try {
             Class.forName(jdbcDriverName);
