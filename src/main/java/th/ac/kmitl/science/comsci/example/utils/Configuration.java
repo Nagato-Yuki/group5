@@ -10,13 +10,13 @@ public class Configuration {
 
     public static Configuration getConfiguration() {
         if(configuration == null || !isInitialized)
-            throw new RuntimeException("Configuration must be initialized by calling Configuration.init() first");
+            throw new ConfigurationException("Configuration must be initialized by calling Configuration.init() first");
         return configuration;
     }
 
     public static void init(String configurationFile) {
         if(isInitialized)
-            throw new RuntimeException("Configuration is initialized.");
+            throw new ConfigurationException("Configuration is initialized.");
         configuration = new Configuration(configurationFile);
         isInitialized = true;
     }
@@ -29,13 +29,13 @@ public class Configuration {
             InputStream inputStream = classLoader.getResourceAsStream(configurationFile);
             properties.load(inputStream);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage(), e.getCause());
+            throw new ConfigurationException(e.getMessage(), e.getCause());
         } catch (NullPointerException e) {
 
             // When configurationFile is not exist
             // classLoader.getResourceAsStream(configurationFile) will return null,
             // so inputStream can be null because of this behavior
-            throw new RuntimeException(e.getMessage(), e.getCause());
+            throw new ConfigurationException(e.getMessage(), e.getCause());
         }
     }
 
