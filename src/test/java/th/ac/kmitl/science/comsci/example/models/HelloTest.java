@@ -5,10 +5,10 @@ import org.junit.Test;
 public class HelloTest {
 
     @Test
-    public void getMessageMustBeHello() {
+    public void testInputHeadForms() {
         String result = new Hello().getMessage();
 
         assert (result.contains("Hello"));
     }
-
+    
 }
