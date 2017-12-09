@@ -1,10 +1,8 @@
 package th.ac.kmitl.science.comsci.example.dal.connection.jdbc;
 
-import th.ac.kmitl.science.comsci.example.dal.connection.jdbc.annotations.JdbcDriver;
-
 import java.sql.*;
 
-public abstract class JdbcConnection
+public class JdbcConnection
         implements AutoCloseable {
 
     private String databaseUri;
@@ -15,7 +13,13 @@ public abstract class JdbcConnection
     private boolean isAutoCommit = false;
     private boolean isInitialized = false;
 
-    public JdbcConnection(String databaseUri, String username, String password) throws SQLException {
+    public JdbcConnection(
+            String jdbcDriverName,
+            String databaseUri,
+            String username,
+            String password
+    ) throws SQLException {
+        this.jdbcDriverName = jdbcDriverName;
         this.databaseUri = databaseUri;
         this.username = username;
         this.password = password;
@@ -57,12 +61,7 @@ public abstract class JdbcConnection
     }
 
     public String getJdbcDriverName() {
-        if(getClass().isAnnotationPresent(JdbcDriver.class)) {
-            JdbcDriver driverAnnotation = getClass()
-                    .getAnnotation(JdbcDriver.class);
-            return driverAnnotation.value();
-        }
-        throw new UnsupportedOperationException("Can't get JDBC driver name");
+        return this.jdbcDriverName;
     }
 
     public PreparedStatement prepareStatement(String sqlStatement) throws SQLException {
