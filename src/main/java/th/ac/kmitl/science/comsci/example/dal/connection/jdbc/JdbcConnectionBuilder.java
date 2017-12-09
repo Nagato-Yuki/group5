@@ -1,6 +1,7 @@
 package th.ac.kmitl.science.comsci.example.dal.connection.jdbc;
 
-import javax.security.auth.login.Configuration;
+import th.ac.kmitl.science.comsci.example.utils.Configuration;
+
 import java.sql.SQLException;
 
 public class JdbcConnectionBuilder {
@@ -39,7 +40,13 @@ public class JdbcConnectionBuilder {
         return new JdbcConnection(jdbcDriverName, databaseUri, username, password);
     }
     
-    public static JdbcConnection fromConfiguration() {
+    public static JdbcConnection fromConfiguration() throws SQLException {
         Configuration configuration = Configuration.getInstance();
+        return new JdbcConnectionBuilder()
+                .withJdbcDriverName(configuration.getProperty("db.driver"))
+                .withDatabaseUri(configuration.getProperty("db.databaseUrl"))
+                .withUsername(configuration.getProperty("db.username"))
+                .withPassword(configuration.getProperty("db.password"))
+                .build();
     }
 }
